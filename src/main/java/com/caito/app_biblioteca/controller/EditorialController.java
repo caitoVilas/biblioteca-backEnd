@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 /**
@@ -55,8 +54,8 @@ public class EditorialController {
     }
 
     @GetMapping()
-    @Operation(description = "servivio que muestra todas las editoriales",
-               summary = "servivio que muestra todas las editoriales")
+    @Operation(description = "servicio que muestra todas las editoriales",
+               summary = "servicio que muestra todas las editoriales")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "ok"),
             @ApiResponse(responseCode = "204", description = "no content"),
@@ -65,5 +64,20 @@ public class EditorialController {
     public ResponseEntity<List<EditorialResponseDTO>> getAll(){
         log.info("####  endpoint que muestra todas las editoriales");
         return ResponseEntity.ok(editorialService.getAll());
+    }
+
+    @PutMapping("/{id}")
+    @Operation(description = "servicio que modifica las editoriales",
+            summary = "servicio que modifica editoriales")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "ok"),
+            @ApiResponse(responseCode = "400", description = "bad request"),
+            @ApiResponse(responseCode = "500", description = "internal server error")
+    })
+    public ResponseEntity<EditorialResponseDTO> update(@PathVariable Long id,
+                                                       @RequestBody EditorialRequestDTO dto){
+        log.info("####  endpoint que muestra todas las editoriales");
+        log.info("####  endpoint para modificar editoriales");
+        return ResponseEntity.ok(editorialService.update(id, dto));
     }
 }
