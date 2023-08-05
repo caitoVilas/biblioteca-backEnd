@@ -1,0 +1,26 @@
+server:
+  port: 8080
+application:
+  version: 0.0.1SNAPSHOT
+  title: app-biblioteca
+spring:
+  ################################################################
+  # datasouse config
+  ################################################################
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_biblioteca  ?serverTimezone=UTC&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    ################################################################
+    # jpa config
+    ################################################################
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+
