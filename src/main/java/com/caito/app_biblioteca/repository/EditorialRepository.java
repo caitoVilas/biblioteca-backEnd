@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EditorialRepository extends JpaRepository<Editorial, Long> {
     boolean existsByName(String name);
-    @Query("SELECT l FROM Local l WHERE l.id <> :id and l.name = :name")
-    Editorial findByNameExists(Long id, String name);
+    @Query("SELECT e FROM Editorial e WHERE e.id <> :id and e.name = :name")
+    Editorial nameExists(Long id, String name);
 }

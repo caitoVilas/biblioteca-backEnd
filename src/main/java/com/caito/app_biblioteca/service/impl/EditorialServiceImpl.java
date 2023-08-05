@@ -45,6 +45,7 @@ public class EditorialServiceImpl implements EditorialService {
                 .name(dto.getName())
                 .state(true)
                 .build();
+        log.info("---> finalizado el servicio crear editorial");
         return Utils.mapEditorialToDto(editorialRepository.save(editorial));
     }
 
@@ -56,7 +57,7 @@ public class EditorialServiceImpl implements EditorialService {
             log.error("ERROR: la editorial con id {} no se encuentra", id);
             return new NotFoundException("la editorial con id " + id + " no se encuentra");
         });
-        Editorial otraEditorial = editorialRepository.findByNameExists(id, dto.getName());
+        Editorial otraEditorial = editorialRepository.nameExists(id, dto.getName());
         if (otraEditorial != null){
             log.error("ERROR: ya existe otra editorial con el nombre {}", dto.getName());
             throw new BadRequestException("ya existe una editorial con el nombre " + dto.getName());
@@ -67,6 +68,7 @@ public class EditorialServiceImpl implements EditorialService {
                 .name(dto.getName())
                 .state(true)
                 .build();
+        log.info("---> finalizado servicio modificaar editorial");
         return Utils.mapEditorialToDto(editorialRepository.save(editorial));
     }
 
@@ -78,6 +80,7 @@ public class EditorialServiceImpl implements EditorialService {
             log.error("ERROR: la editorial con id {} no se encuentra", id);
             return new NotFoundException("la editorial con id " + id + " no se encuentra");
         });
+        log.info("---> finalizado servicio buscar editorial x id");
         return Utils.mapEditorialToDto(editorial);
     }
 
@@ -90,6 +93,7 @@ public class EditorialServiceImpl implements EditorialService {
             log.error("ERROR: no hay editoriales para mostrar");
             throw new NoContentException("no hay editoriales para mostrar");
         }
+        log.info("---> finalizado servicio buscar editoriales");
         return editorials.stream().map(Utils::mapEditorialToDto).collect(Collectors.toList());
     }
 }
