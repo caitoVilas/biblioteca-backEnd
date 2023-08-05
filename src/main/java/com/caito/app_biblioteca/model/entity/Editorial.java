@@ -25,5 +25,5 @@ public class Editorial {
     @Column(length = 100)
     private String name;
     @Column(length = 1)
-    private String state;
+    private boolean state;
 }
