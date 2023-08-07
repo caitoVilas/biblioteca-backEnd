@@ -33,8 +33,8 @@ public class LibraryServiceimpl implements LibraryService {
         log.info("---> inicio servicio crear libreria");
         log.info("---> validando...");
         if (dto.getName().isEmpty()){
-            log.error("ERROR: la descripcion para la libreria es requerida");
-            throw new BadRequestException("la descripcion para la libreria es requerida");
+            log.error("ERROR: el nombre para la libreria es requerida");
+            throw new BadRequestException("el nombre para la libreria es requerida");
         }
         if (libraryRepository.existsByName(dto.getName())){
             log.error("ERROR: ya existe una libreria con el nombre {}", dto.getName());
@@ -47,6 +47,10 @@ public class LibraryServiceimpl implements LibraryService {
         if (dto.getEmail().isEmpty()){
             log.error("ERROR: el email para la libreria es requerido");
             throw new BadRequestException("el email para la libreria es requerido");
+        }
+        if(libraryRepository.existsByEmail(dto.getEmail())){
+            log.error("ERROR: ya existe una libreria con el email {}", dto.getEmail());
+            throw new BadRequestException("ya existe una libreria con el email " + dto.getEmail());
         }
         log.info("---> datos de libreria validados GUARDANDO...");
         Library library = Utils.mapToLibraryEntity(dto);
@@ -88,27 +92,32 @@ public class LibraryServiceimpl implements LibraryService {
             log.error("ERROR: no se encuentra una libreria con id {}", id);
             return new NotFoundException("no se encuentra una libreria con id " + id);
         });
-        if (dto.getName().isEmpty()){
-            log.error("ERROR: el nombre para la libreria es requerida");
-            throw new BadRequestException("el nombre para la libreria es requerida");
-        }
-        if (dto.getEmail().isEmpty()){
-            log.error("ERROR: el email para la libreria es requerida");
-            throw new BadRequestException("el email para la libreria es requerida");
-        }
         Library otraLibrary = libraryRepository.libraryByName(id, dto.getName());
         if (otraLibrary != null){
             log.error("ERROR: ya existe otra libreria con ese nombre {}", dto.getName());
             throw new BadRequestException("ya existe otra libreriaa con ese nombre " + dto.getName());
         }
-        if (libraryRepository.existsByEmail(dto.getEmail())){
-            log.error("ERROR: ya existe otra libreria con ese email {}", dto.getEmail());
-            throw new BadRequestException("ya existe otra libreriaa con ese email " + dto.getEmail());
+        if (!dto.getEmail().isEmpty()){
+            if (libraryRepository.existsByEmail(dto.getEmail())){
+                log.error("el email {} ya existe en otra libreria", dto.getEmail());
+                throw new BadRequestException("el email " + dto.getEmail() + " ya existe en otra libreria");
+            }
         }
         log.info("---> datos de libreria validados GUARDANDO CAMBIOS....");
         Library library = Utils.mapToLibraryEntity(dto);
+        library.setId(id);
+        if (library.getName().isEmpty())
+            library.setName(libraryOld.getName());
+        if (library.getDescripotion().isEmpty())
+            library.setDescripotion(libraryOld.getDescripotion());
+        if (library.getAddress().isEmpty())
+            library.setAddress(libraryOld.getAddress());
+        if (library.getEmail().isEmpty())
+            library.setEmail(libraryOld.getEmail());
+        if (library.getTel().isEmpty())
+            library.setTel(libraryOld.getTel());
         library.setStaus(libraryOld.isStaus());
         log.info("---> finalizado el servicio actualizar area");
-        return Utils.mapLibraryToDto(library);
+        return Utils.mapLibraryToDto(libraryRepository.save(library));
     }
 }

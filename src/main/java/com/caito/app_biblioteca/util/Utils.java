@@ -43,7 +43,7 @@ public class Utils {
         return LibraryResponseDTO.builder()
                 .id(library.getId())
                 .name(library.getName())
-                .descripotion(library.getDescripotion())
+                .description(library.getDescripotion())
                 .address(library.getAddress())
                 .email(library.getEmail())
                 .tel(library.getTel())
@@ -54,7 +54,7 @@ public class Utils {
     public static Library mapToLibraryEntity(LibrarieRequestDTO dto){
         return Library.builder()
                 .name(dto.getName())
-                .descripotion(dto.getDescripotion())
+                .descripotion(dto.getDescription())
                 .address(dto.getAddress())
                 .email(dto.getEmail())
                 .tel(dto.getTel())

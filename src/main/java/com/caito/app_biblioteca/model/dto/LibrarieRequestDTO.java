@@ -23,7 +23,7 @@ public class LibrarieRequestDTO {
     @Schema(name = "name", required = true, example = "Biblioteca Sarmiento")
     private String name;
     @Schema(name = "description", required = false, example = "biblioteca general para todo publico")
-    private String descripotion;
+    private String description;
     @Schema(name = "address", required = true, example = "Peron 2345, V.Alsina")
     private String address;
     @Schema(name = "email", required = true, example = "sarmiento@sarmiento.com.ar")

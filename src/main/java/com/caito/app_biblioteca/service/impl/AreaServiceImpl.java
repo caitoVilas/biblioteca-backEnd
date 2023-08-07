@@ -78,26 +78,24 @@ public class AreaServiceImpl implements AreaService {
     public AreaResponseDTO update(Long id, AreaRequestDTO dto) {
         log.info("---> inicio servicio actualizar area con id {}", id);
         log.info("---> validando...");
+        if (dto.getDescription().isEmpty()){
+            log.error("ERROR: no se envia descripcion nada para modificar");
+            throw new BadRequestException("no se envia descripcion nada para modificar");
+        }
         Area areaVieja = areaRepository.findById(id).orElseThrow(()->{
             log.error("ERROR: no se encuentra un area con id {}", id);
             return new NotFoundException("no se encuentra un area con id " + id);
         });
-        if (dto.getDescription().isEmpty()){
-            log.error("ERROR: la descripcion para el area es requerida");
-            throw new BadRequestException("la descripcion para el area es requerida");
-        }
         Area otraArea = areaRepository.areaForDescription(id, dto.getDescription());
         if (otraArea != null){
             log.error("ERROR: ya existe otro area con esa descripcion {}", dto.getDescription());
             throw new BadRequestException("ya existe otro area con esa descripcion " + dto.getDescription());
         }
         log.info("---> datos de area validados GUARDANDO CAMBIOS....");
-        Area area = Area.builder()
-                .id(id)
-                .description(dto.getDescription())
-                .status(areaVieja.isStatus())
-                .build();
+        Area area = Utils.mapAreaToEntity(dto);
+        area.setId(id);
+        area.setStatus(areaVieja.isStatus());
         log.info("---> finalizado el servicio actualizar area");
-        return Utils.mapAreaToDTO(area);
+        return Utils.mapAreaToDTO(areaRepository.save(area));
     }
 }

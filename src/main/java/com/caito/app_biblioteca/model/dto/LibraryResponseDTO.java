@@ -22,7 +22,7 @@ public class LibraryResponseDTO {
     @Schema(name = "name")
     private String name;
     @Schema(name = "description")
-    private String descripotion;
+    private String description;
     @Schema(name = "address")
     private String address;
     @Schema(name = "email")

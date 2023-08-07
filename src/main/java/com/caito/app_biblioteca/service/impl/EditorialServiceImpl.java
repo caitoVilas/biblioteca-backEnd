@@ -53,7 +53,11 @@ public class EditorialServiceImpl implements EditorialService {
     public EditorialResponseDTO update(Long id, EditorialRequestDTO dto) {
         log.info("---> inicio servicio actualizar editorial con id {}", id);
         log.info("---> validando...");
-        editorialRepository.findById(id).orElseThrow(()->{
+        if (dto.getName().isEmpty()){
+            log.error("ERROR: no se envia nombre nada para mificar");
+            throw new BadRequestException("no se envia nombre nada para mificar");
+        }
+        Editorial oldEditorial = editorialRepository.findById(id).orElseThrow(()->{
             log.error("ERROR: la editorial con id {} no se encuentra", id);
             return new NotFoundException("la editorial con id " + id + " no se encuentra");
         });
@@ -63,11 +67,9 @@ public class EditorialServiceImpl implements EditorialService {
             throw new BadRequestException("ya existe una editorial con el nombre " + dto.getName());
         }
         log.info("---> datos de editorial validados GUARDANDO CAMBIOS");
-        Editorial editorial = Editorial.builder()
-                .id(id)
-                .name(dto.getName())
-                .state(true)
-                .build();
+        Editorial editorial = Utils.mapEditorialToEntity(dto);
+        editorial.setId(id);
+        editorial.setState(oldEditorial.isState());
         log.info("---> finalizado servicio modificaar editorial");
         return Utils.mapEditorialToDto(editorialRepository.save(editorial));
     }
