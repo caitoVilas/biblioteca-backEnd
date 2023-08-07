@@ -6,7 +6,6 @@ import com.caito.app_biblioteca.exception.custom.NotFoundException;
 import com.caito.app_biblioteca.model.dto.AreaRequestDTO;
 import com.caito.app_biblioteca.model.dto.AreaResponseDTO;
 import com.caito.app_biblioteca.model.entity.Area;
-import com.caito.app_biblioteca.model.entity.Editorial;
 import com.caito.app_biblioteca.repository.AreaRepository;
 import com.caito.app_biblioteca.service.contract.AreaService;
 import com.caito.app_biblioteca.util.Utils;
@@ -38,8 +37,8 @@ public class AreaServiceImpl implements AreaService {
             throw new BadRequestException("la descripcion para el area es requerida");
         }
         if (areaRepository.existsByDescription(dto.getDescription())){
-            log.error("ERROR: ya existe con area con la descripcion {}", dto.getDescription());
-            throw new BadRequestException("ya existe una area con la descripcion " + dto.getDescription());
+            log.error("ERROR: ya existe un area con la descripcion {}", dto.getDescription());
+            throw new BadRequestException("ya existe un area con la descripcion " + dto.getDescription());
         }
         log.info("---> datos de area validados GUARDANDO...");
         Area area = Area.builder()
@@ -56,7 +55,7 @@ public class AreaServiceImpl implements AreaService {
         log.info("---> buscando area...");
         Area area = areaRepository.findById(id).orElseThrow(()->{
             log.error("ERROR: no se encuentra un area con id {}", id);
-            throw new NotFoundException("no se encuentra un area con id " + id);
+            return new NotFoundException("no se encuentra un area con id " + id);
         });
         log.info("---> finalizado el servicio buscar area por id");
         return Utils.mapAreaToDTO(area);
@@ -81,7 +80,7 @@ public class AreaServiceImpl implements AreaService {
         log.info("---> validando...");
         Area areaVieja = areaRepository.findById(id).orElseThrow(()->{
             log.error("ERROR: no se encuentra un area con id {}", id);
-            throw new NotFoundException("no se encuentra un area con id " + id);
+            return new NotFoundException("no se encuentra un area con id " + id);
         });
         if (dto.getDescription().isEmpty()){
             log.error("ERROR: la descripcion para el area es requerida");

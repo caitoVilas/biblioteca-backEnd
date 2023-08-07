@@ -30,5 +30,5 @@ public class LibraryResponseDTO {
     @Schema(name = "tel")
     private String tel;
     @Schema(name = "status")
-    private boolean staus;
+    private String staus;
 }

@@ -1,11 +1,9 @@
 package com.caito.app_biblioteca.util;
 
-import com.caito.app_biblioteca.model.dto.AreaRequestDTO;
-import com.caito.app_biblioteca.model.dto.AreaResponseDTO;
-import com.caito.app_biblioteca.model.dto.EditorialRequestDTO;
-import com.caito.app_biblioteca.model.dto.EditorialResponseDTO;
+import com.caito.app_biblioteca.model.dto.*;
 import com.caito.app_biblioteca.model.entity.Area;
 import com.caito.app_biblioteca.model.entity.Editorial;
+import com.caito.app_biblioteca.model.entity.Library;
 
 /**
  * @author claudio.vilas
@@ -38,6 +36,28 @@ public class Utils {
     public static Area mapAreaToEntity(AreaRequestDTO dto){
         return Area.builder()
                 .description(dto.getDescription())
+                .build();
+    }
+
+    public static LibraryResponseDTO mapLibraryToDto(Library library){
+        return LibraryResponseDTO.builder()
+                .id(library.getId())
+                .name(library.getName())
+                .descripotion(library.getDescripotion())
+                .address(library.getAddress())
+                .email(library.getEmail())
+                .tel(library.getTel())
+                .staus(library.isStaus()?"A": "I")
+                .build();
+    }
+
+    public static Library mapToLibraryEntity(LibrarieRequestDTO dto){
+        return Library.builder()
+                .name(dto.getName())
+                .descripotion(dto.getDescripotion())
+                .address(dto.getAddress())
+                .email(dto.getEmail())
+                .tel(dto.getTel())
                 .build();
     }
 }
