@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "AREA")
+@Table(name = "AREAS")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

@@ -13,17 +13,25 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "EDITORIALS")
+@Table(name = "LIBRARIES")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class Editorial {
+public class Library {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 100)
     private String name;
-    @Column(length = 1)
-    private boolean state;
+    @Column(length = 100)
+    private String descripotion;
+    @Column(length = 100)
+    private String address;
+    @Column(length = 70)
+    private String email;
+    @Column(length = 50)
+    private String tel;
+    private boolean staus;
 }
+
