@@ -7,7 +7,6 @@ import com.caito.app_biblioteca.model.dto.BookRequestDTO;
 import com.caito.app_biblioteca.model.dto.BookResponseDTO;
 import com.caito.app_biblioteca.model.entity.Book;
 import com.caito.app_biblioteca.model.entity.Editorial;
-import com.caito.app_biblioteca.model.entity.Library;
 import com.caito.app_biblioteca.model.entity.SubArea;
 import com.caito.app_biblioteca.repository.BookRepository;
 import com.caito.app_biblioteca.repository.EditorialRepository;
@@ -56,11 +55,11 @@ public class BookServiceImpl implements BookService {
         }
         Editorial editorial = editorialRepository.findById(dto.getIdEditorial()).orElseThrow(()->{
             log.error("ERROR: no se encuentra editorial con id {}", dto.getIdEditorial());
-            throw new BadRequestException("no se encuentra editorial con id " + dto.getIdEditorial());
+            return new BadRequestException("no se encuentra editorial con id " + dto.getIdEditorial());
         });
         SubArea subArea = subAreaRepository.findById(dto.getSubArea()).orElseThrow(()->{
             log.error("ERROR: no se encuentra subarea con id {}",dto.getSubArea());
-            throw new BadRequestException("no se encuentra subarea con id " + dto.getSubArea());
+            return new BadRequestException("no se encuentra subarea con id " + dto.getSubArea());
         });
         if (bookRepository.existsByIsbn(dto.getIsbn())){
             log.error("ERROR: ya existe un libro con isbn {}", dto.getIsbn());
@@ -127,13 +126,13 @@ public class BookServiceImpl implements BookService {
        if (dto.getIdEditorial() != null){
             editorial = editorialRepository.findById(dto.getIdEditorial()).orElseThrow(()->{
                log.error("ERROR: no se encuentra editorial con id {}", dto.getIdEditorial());
-               throw new BadRequestException("no se encuentra editorial con id " + dto.getIdEditorial());
+                return new BadRequestException("no se encuentra editorial con id " + dto.getIdEditorial());
            });
        }
        if (dto.getSubArea() != null){
             subArea = subAreaRepository.findById(dto.getSubArea()).orElseThrow(()->{
                log.error("ERROR: no se encuentra subarea con id {}", dto.getSubArea());
-               throw new BadRequestException("no se encuentra subarea con id " + dto.getSubArea());
+                return new BadRequestException("no se encuentra subarea con id " + dto.getSubArea());
            });
        }
         log.info("---> datos de libreria validados GUARDANDO CAMBIOS....");
