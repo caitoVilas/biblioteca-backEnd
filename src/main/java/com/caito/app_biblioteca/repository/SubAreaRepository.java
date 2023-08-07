@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SubAreaRepository extends JpaRepository<SubArea, Long> {
     boolean existsByDescription(String description);
-    @Query("SELECT s FROM Subarea s WHERE s.id <> :id and s.description = :description")
+    @Query("SELECT s FROM SubArea s WHERE s.id <> :id and s.description = :description")
     SubArea subareaForDescription(Long id, String description);
+    boolean existsByIdAndDescription(Long id, String description);
 }

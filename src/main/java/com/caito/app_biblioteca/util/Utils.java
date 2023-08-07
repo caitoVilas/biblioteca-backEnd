@@ -1,9 +1,7 @@
 package com.caito.app_biblioteca.util;
 
 import com.caito.app_biblioteca.model.dto.*;
-import com.caito.app_biblioteca.model.entity.Area;
-import com.caito.app_biblioteca.model.entity.Editorial;
-import com.caito.app_biblioteca.model.entity.Library;
+import com.caito.app_biblioteca.model.entity.*;
 
 /**
  * @author claudio.vilas
@@ -58,6 +56,29 @@ public class Utils {
                 .address(dto.getAddress())
                 .email(dto.getEmail())
                 .tel(dto.getTel())
+                .build();
+    }
+
+    public static SubAreaResponseDTO mapSubareaToDto(SubArea subArea){
+        return SubAreaResponseDTO.builder()
+                .id(subArea.getId())
+                .descripcion(subArea.getDescription())
+                .area(mapAreaToDTO(subArea.getArea()))
+                .build();
+    }
+
+    public static BookResponseDTO mapBookToDto(Book book){
+        return BookResponseDTO.builder()
+                .id(book.getId())
+                .title(book.getTitle())
+                .subtitle(book.getSubtitle())
+                .isbn(book.getIsbn())
+                .description(book.getDescription())
+                .numberPages(book.getNumberPages())
+                .yearPublicate(book.getYearPublicate())
+                .state(book.isState()? "A": "I")
+                .editorial(mapEditorialToDto(book.getEditorial()))
+                .subArea(mapSubareaToDto(book.getSubArea()))
                 .build();
     }
 }
