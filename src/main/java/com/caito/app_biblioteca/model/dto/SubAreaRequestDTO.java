@@ -8,15 +8,17 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author claudio.vilas
- * date: 08/2023
+ * date. 08/2023
  */
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
-@Schema(description = "modelo que representa un area para crear/modificar")
-public class AreaRequestDTO {
-    @Schema(name = "description", required = true, example = "Informatica")
+@Schema(description = "modelo que representa una subarea para crear/modiicar")
+public class SubAreaRequestDTO {
+    @Schema(name = "id", required = true, example = "Bases de Datos")
     private String description;
+    private Long idArea;
+
 }
