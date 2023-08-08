@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 public class SubAreaResponseDTO {
     @Schema(name = "id")
     private Long id;
-    @Schema(name = "descripcion")
-    private String descripcion;
+    @Schema(name = "description")
+    private String description;
     @Schema(name = "state")
     private String state;
     @Schema(name = "area")

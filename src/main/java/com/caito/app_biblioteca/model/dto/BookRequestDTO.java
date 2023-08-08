@@ -38,5 +38,5 @@ public class BookRequestDTO {
     @Schema(name = "idEditorial",required = true, example = "1")
     private Long idEditorial;
     @Schema(name = "idSubarea", required = true, example = "1")
-    private Long subArea;
+    private Long idSubarea;
 }

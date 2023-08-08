@@ -57,9 +57,9 @@ public class BookServiceImpl implements BookService {
             log.error("ERROR: no se encuentra editorial con id {}", dto.getIdEditorial());
             return new BadRequestException("no se encuentra editorial con id " + dto.getIdEditorial());
         });
-        SubArea subArea = subAreaRepository.findById(dto.getSubArea()).orElseThrow(()->{
-            log.error("ERROR: no se encuentra subarea con id {}",dto.getSubArea());
-            return new BadRequestException("no se encuentra subarea con id " + dto.getSubArea());
+        SubArea subArea = subAreaRepository.findById(dto.getIdSubarea()).orElseThrow(()->{
+            log.error("ERROR: no se encuentra subarea con id {}",dto.getIdSubarea());
+            return new BadRequestException("no se encuentra subarea con id " + dto.getIdSubarea());
         });
         if (bookRepository.existsByIsbn(dto.getIsbn())){
             log.error("ERROR: ya existe un libro con isbn {}", dto.getIsbn());
@@ -129,10 +129,10 @@ public class BookServiceImpl implements BookService {
                 return new BadRequestException("no se encuentra editorial con id " + dto.getIdEditorial());
            });
        }
-       if (dto.getSubArea() != null){
-            subArea = subAreaRepository.findById(dto.getSubArea()).orElseThrow(()->{
-               log.error("ERROR: no se encuentra subarea con id {}", dto.getSubArea());
-                return new BadRequestException("no se encuentra subarea con id " + dto.getSubArea());
+       if (dto.getIdSubarea() != null){
+            subArea = subAreaRepository.findById(dto.getIdSubarea()).orElseThrow(()->{
+               log.error("ERROR: no se encuentra subarea con id {}", dto.getIdSubarea());
+                return new BadRequestException("no se encuentra subarea con id " + dto.getIdSubarea());
            });
        }
         log.info("---> datos de libreria validados GUARDANDO CAMBIOS....");
@@ -146,7 +146,7 @@ public class BookServiceImpl implements BookService {
                         .yearPublicate(dto.getYearPublicate().isEmpty()? oldBook.getYearPublicate() : dto.getYearPublicate())
                         .state(oldBook.isState())
                         .editorial(dto.getIdEditorial() == null? oldBook.getEditorial(): editorial)
-                        .subArea(dto.getSubArea() == null? oldBook.getSubArea(): subArea)
+                        .subArea(dto.getIdSubarea() == null? oldBook.getSubArea(): subArea)
                         .build();
         log.info("---> finalizado el servicio actualizar libro");
         return Utils.mapBookToDto(bookRepository.save(book));

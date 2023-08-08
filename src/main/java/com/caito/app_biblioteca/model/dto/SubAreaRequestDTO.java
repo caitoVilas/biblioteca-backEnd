@@ -17,8 +17,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @Schema(description = "modelo que representa una subarea para crear/modiicar")
 public class SubAreaRequestDTO {
-    @Schema(name = "id", required = true, example = "Bases de Datos")
+    @Schema(name = "description", required = true, example = "Bases de Datos")
     private String description;
+    @Schema(name = "idArea", required = true, example = "1")
     private Long idArea;
 
 }

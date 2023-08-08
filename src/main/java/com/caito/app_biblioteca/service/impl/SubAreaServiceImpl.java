@@ -54,6 +54,7 @@ public class SubAreaServiceImpl implements SubAreaService {
         log.info("---> datos de la subarea validados GUARDANDO...");
         SubArea subArea = SubArea.builder()
                         .description(dto.getDescription())
+                        .state(true)
                         .area(area)
                         .build();
         log.info("---> finalizado servicio crear subarea");

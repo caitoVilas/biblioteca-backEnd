@@ -62,7 +62,8 @@ public class Utils {
     public static SubAreaResponseDTO mapSubareaToDto(SubArea subArea){
         return SubAreaResponseDTO.builder()
                 .id(subArea.getId())
-                .descripcion(subArea.getDescription())
+                .description(subArea.getDescription())
+                .state(subArea.isState()? "A": "I")
                 .area(mapAreaToDTO(subArea.getArea()))
                 .build();
     }
